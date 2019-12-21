@@ -1,0 +1,28 @@
+﻿@model PizzaOnline.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<head>
+    <style>
+        body {
+            background-color: #009472;
+        }
+    </style>
+</head>
+<body>
+    <h3>Are you sure you want to delete @Model.ProductName ?</h3>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>

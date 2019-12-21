@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PizzaOnline.Admin>
+
+@{
+    ViewBag.Title = "Admin Manager";
+}
+
+<h2>List of Admin</h2>
+<style>
+    body {
+        background-color: #007878;
+    }
+</style>    
+<p>
+    @Html.ActionLink("Add new admin", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Admin Name
+        </th>
+        <th>
+            Full Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AdminName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AdminID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AdminID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AdminID })
+        </td>
+    </tr>
+}
+
+</table>

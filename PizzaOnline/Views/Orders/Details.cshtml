@@ -1,0 +1,43 @@
+﻿@model PizzaOnline.OrderDetail
+
+@{
+    ViewBag.Title = "Order Details";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        body {
+            background-color:  #009871;
+        }
+    </style>
+</head>
+<h2>Order Details</h2><br />
+<body>
+<div>
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr class="info">
+                <td>@Html.DisplayFor(model => model.Order.Customer.FullName)</td>
+                <td>@Html.DisplayFor(model => model.Product.ProductName)</td>
+                <td>@Html.DisplayFor(model => model.Quantity)</td>
+                <td>@Html.DisplayFor(model => model.Price)</td>
+            </tr>
+            </tbody>
+    </table> 
+</div>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

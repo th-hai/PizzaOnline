@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PizzaOnline.Category>
+
+@{
+    ViewBag.Title = "Category";
+}
+
+
+<head>
+    <h2>Category</h2>
+    <style>
+        body {
+            background-image: linear-gradient(to top, #007878, #009871);
+        }
+    </style>
+</head>
+<p>
+    @Html.ActionLink("Add New Category", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Category Name
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })
+        </td>
+    </tr>
+}
+
+</table>

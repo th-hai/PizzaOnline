@@ -1,0 +1,125 @@
+﻿@*@model IEnumerable<PizzaOnline.Product>*@  
+@{
+	ViewBag.Title = "Order";
+}
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Product>
+<link href="https://fonts.googleapis.com/css?family=Inconsolata&display=swap" rel="stylesheet">
+<head>
+	<style>
+		body {
+			font-family: Lato, Helvetica, sans-serif;
+			background-image: linear-gradient(to top,#051937, #00375a, #005871, #007878, #009871);
+		}
+
+		.column {
+			float: left;
+			width: 25%;
+			padding: 0 15px;
+			padding-top: 15px;
+		}
+
+		.row {margin: 0 -5px;}
+
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.card {
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			max-width: 300px;
+			margin: auto;
+			text-align: center;
+			font-family: arial;
+		}
+		.card img {
+			border-radius: 5%;
+		}
+		.card img:hover {
+			background: #38ada9;
+		}
+		.price {
+			color: grey;
+			font-size: 22px;
+		}
+		.card button {
+			border: none;
+			outline: 0;
+			padding: 12px;
+			color: white;
+			background-color: #009871;
+			text-align: center;
+			cursor: pointer;
+			width: 100%;
+			font-size: 18px;
+		}
+		.card h1 {
+			font-size:large;
+		}
+		.text-success {
+			font-size: x-large;
+			font-weight: bold;
+		}
+		.card button:hover {
+			opacity: 0.7;
+		}
+	</style>
+</head>
+<h2>Order</h2>
+
+<ul>
+	<input type="button" class="btn btn-success" value="Pizzas" onclick="location.href='@Url.Action("List","Product", new { page = 1, category = 1}, null)'" />
+	<input type="button" class="btn btn-success" value="Drinks" onclick="location.href='@Url.Action("List","Product", new { page = 1, category = 2}, null)'" />
+</ul>
+
+<div class="search-bar">
+	<input class="form-control" id="Search" type="text" Placeholder="Search">
+</div>
+<body>
+<div class="row">
+	@if (Model != null)
+	{
+		foreach (var item in Model)
+		{
+			<div class="column">
+				<div class="card">
+					<img src="@item.ImageURL" alt="@item.ProductName" onclick="location.href='@Url.Action("Details", "Product", 
+																				new { id = item.ProductID })'" style="width:100%">
+					<h1>@item.ProductName</h1>
+					<p class="text-success">@item.Price VNĐ</p>
+					<p><button class="btn btn-success" onclick="location.href='@Url.Action("OrderProduct","ShoppingCart",new {id = item.ProductID})'">Add to Cart</button></p>
+				</div>
+			</div>
+		}
+	}
+</div>
+</body>
+<footer>
+	Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber )/@Model.PageCount
+	<div class ="Div-Pagination">
+		@Html.PagedListPager(Model,page => Url.Action("List",new {page = page, category = ViewBag.category}))
+	</div>
+</footer>
+<script src="~/Scripts/jquery-1.10.2.min.js">
+</script>
+<script>
+	$(document).ready(function() {
+		function Contains(text1, text2) {
+			if (text1.indexOf(text2) != -1)
+				return true;
+		}
+		$("#Search").keyup(function() {
+			var searchText = $("#Search").val().toLowerCase();
+			$(".column").each(function() {
+				if (!Contains($(this).text().toLowerCase(), searchText)) {
+					$(this).hide();
+				} else {
+					$(this).show();
+				}
+			})
+		})
+	})
+</script>
